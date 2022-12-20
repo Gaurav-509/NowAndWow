@@ -5,27 +5,27 @@ const Directory = () => {
   const productCategories = [
     {
       id: 1,
-      name: "hats",
+      name: "Hats",
       imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
     },
     {
       id: 2,
-      name: "jackets",
+      name: "Jackets",
       imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
     },
     {
       id: 3,
-      name: "sneakers",
+      name: "Sneakers",
       imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
     },
     {
       id: 4,
-      name: "womens",
+      name: "Womens",
       imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
     },
     {
       id: 5,
-      name: "mens",
+      name: "Mens",
       imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
     },
   ];

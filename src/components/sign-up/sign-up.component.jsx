@@ -1,26 +1,20 @@
-import {
-  signInWithGooglePopup,
-  createUSerDocumentFromAuth,
-} from "../../utils/firebase.utils";
-
-import "./sign-in.styles.scss";
+import "./sign-up.styles.scss";
+import { useState } from "react";
 
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 
-const SignIn = () => {
-  const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUSerDocumentFromAuth(user);
-  };
-
+const SignUp = () => {
   return (
     <Container>
       <Form className='form'>
-        <h1>SIGN IN</h1>
-        <p>Sign in with your email and password</p>
+        <h1>SIGN UP</h1>
+        <Form.Group className='mb-3' controlId='formBasicName'>
+          <Form.Label>Enter Full Name</Form.Label>
+          <Form.Control type='name' placeholder='Enter Full Name' />
+        </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
           <Form.Control type='email' placeholder='Enter email' />
@@ -29,19 +23,19 @@ const SignIn = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control type='password' placeholder='Password' />
         </Form.Group>
-        <Form.Text className='form-text'>
-          I don't have an account <Link to='/sign-up'>Sign Up</Link>
+        <Form.Group className='mb-3' controlId='formBasicConfirmPassword'>
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type='confirm-password'
+            placeholder='Confirm Password'
+          />
+        </Form.Group>
+        <Form.Text>
+          I already have an account <Link to='/sign-in'>Sign In</Link>
         </Form.Text>
         <div className='buttons'>
           <Button variant='secondary' type='submit' className='one-button'>
-            Sign In
-          </Button>{" "}
-          <Button
-            variant='secondary'
-            onClick={logGoogleUser}
-            className='one-button'
-          >
-            Sign in with <i className='fa-brands fa-google'></i>
+            Sign Up
           </Button>
         </div>
       </Form>
@@ -49,4 +43,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

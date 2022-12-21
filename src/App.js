@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navigation from './components/navigation/navigation.component.jsx';
 import Shop from './pages/shop/shop.component.jsx';
 import SignIn from './components/sign-in/sign-in.component.jsx';
+import SignUp from './components/sign-up/sign-up.component.jsx';
 
 const App = () => {
   return (
@@ -11,7 +12,8 @@ const App = () => {
       <Route path="/" element={<Navigation />}>
         <Route index element={<Directory />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
       </Route>
     </Routes>
   );

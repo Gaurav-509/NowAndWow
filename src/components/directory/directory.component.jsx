@@ -32,7 +32,7 @@ const Directory = () => {
   return (
     <div className='directory-container'>
       {productCategories.map((category) => {
-        return <Categories category={category} />;
+        return <Categories key={category.id} category={category} />;
       })}
     </div>
   );

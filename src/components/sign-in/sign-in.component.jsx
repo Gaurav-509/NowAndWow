@@ -1,6 +1,8 @@
+import React, { useState } from "react";
 import {
   signInWithGooglePopup,
-  createUSerDocumentFromAuth,
+  createUserDocumentFromAuth,
+  signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase.utils";
 
 import "./sign-in.styles.scss";
@@ -10,35 +12,88 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 
+const defaultFormFields = {
+  email: "",
+  password: "",
+};
+
 const SignIn = () => {
-  const logGoogleUser = async () => {
-    const { user } = await signInWithGooglePopup();
-    const userDocRef = await createUSerDocumentFromAuth(user);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password } = formFields;
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
   };
 
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup();
+    await createUserDocumentFromAuth(user);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log(response);
+      resetFormFields();
+    } catch (error) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("Wrong Password");
+          break;
+        case "auth/user-not-found":
+          alert("User does not exist");
+          break;
+        default:
+          console.log(error);
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
   return (
     <Container>
-      <Form className='form'>
+      <Form className='form' onSubmit={handleSubmit}>
         <h1>SIGN IN</h1>
         <p>Sign in with your email and password</p>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
-          <Form.Control type='email' placeholder='Enter email' />
+          <Form.Control
+            type='email'
+            placeholder='Enter email'
+            onChange={handleChange}
+            name='email'
+            value={email}
+            required
+          />
         </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label>Password</Form.Label>
-          <Form.Control type='password' placeholder='Password' />
+          <Form.Control
+            type='password'
+            placeholder='Password'
+            onChange={handleChange}
+            name='password'
+            value={password}
+            required
+          />
         </Form.Group>
-        <Form.Text className='form-text'>
-          I don't have an account <Link to='/sign-up'>Sign Up</Link>
-        </Form.Text>
+
         <div className='buttons'>
           <Button variant='secondary' type='submit' className='one-button'>
             Sign In
           </Button>{" "}
           <Button
+            type='button'
             variant='secondary'
-            onClick={logGoogleUser}
+            onClick={signInWithGoogle}
             className='one-button'
           >
             Sign in with <i className='fa-brands fa-google'></i>

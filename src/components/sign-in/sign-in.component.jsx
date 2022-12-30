@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -6,6 +6,7 @@ import {
 } from "../../utils/firebase.utils";
 
 import "./sign-in.styles.scss";
+import { UserContext } from "../context/user.context";
 
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -21,6 +22,8 @@ const SignIn = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -34,11 +37,11 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      setCurrentUser(user);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -85,6 +88,9 @@ const SignIn = () => {
             required
           />
         </Form.Group>
+        <Form.Text>
+          Don't have an account <Link to='/sign-up'>Sign Up</Link>
+        </Form.Text>
 
         <div className='buttons'>
           <Button variant='secondary' type='submit' className='one-button'>

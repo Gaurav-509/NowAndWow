@@ -1,15 +1,15 @@
-import "./categories.styles.scss";
+import "./directory-item.styles.scss";
 
 const Categories = ({ category }) => {
   return (
-    <div className='category-container'>
+    <div className='directory-item-container'>
       <div
         className='background-image'
         style={{
           backgroundImage: `url(${category.imageUrl})`,
         }}
       />
-      <div className='category-body-container'>
+      <div className='body'>
         <h2>{category.name}</h2>
         <p className='shopNowKey'>Shop Now</p>
       </div>

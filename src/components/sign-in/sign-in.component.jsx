@@ -5,12 +5,10 @@ import {
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase.utils";
 
-import "./sign-in.styles.scss";
+import { SignInForm, Buttons, OneButton, Heading, P } from "./sign-in.styles";
 import { UserContext } from "../context/user.context";
-
+import { Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 
 const defaultFormFields = {
@@ -63,9 +61,9 @@ const SignIn = () => {
   };
   return (
     <Container>
-      <Form className='form' onSubmit={handleSubmit}>
-        <h1>SIGN IN</h1>
-        <p>Sign in with your email and password</p>
+      <SignInForm onSubmit={handleSubmit}>
+        <Heading>SIGN IN</Heading>
+        <P>Sign in with your email and password</P>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -92,20 +90,19 @@ const SignIn = () => {
           Don't have an account <Link to='/sign-up'>Sign Up</Link>
         </Form.Text>
 
-        <div className='buttons'>
-          <Button variant='secondary' type='submit' className='one-button'>
+        <Buttons>
+          <OneButton variant='secondary' type='submit'>
             Sign In
-          </Button>{" "}
-          <Button
+          </OneButton>{" "}
+          <OneButton
             type='button'
             variant='secondary'
             onClick={signInWithGoogle}
-            className='one-button'
           >
             Sign in with <i className='fa-brands fa-google'></i>
-          </Button>
-        </div>
-      </Form>
+          </OneButton>
+        </Buttons>
+      </SignInForm>
     </Container>
   );
 };

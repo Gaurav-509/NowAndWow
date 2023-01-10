@@ -1,9 +1,9 @@
-import "./sign-up.styles.scss";
+import { SignUpForm, NameInput, MainTitle } from "./sign-up.styles";
 import { useState, useContext } from "react";
 
-import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/user.context";
 import {
@@ -46,7 +46,7 @@ const SignUp = () => {
       await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
-      if (error.code == "auth/email-already-in-use") {
+      if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user email already exist");
       } else {
         console.log("user creation encountered error", error);
@@ -60,9 +60,9 @@ const SignUp = () => {
 
   return (
     <Container>
-      <Form className='form' onSubmit={handleSubmit}>
-        <h1>SIGN UP</h1>
-        <Form.Group className='mb-3' controlId='formBasicName'>
+      <SignUpForm onSubmit={handleSubmit}>
+        <MainTitle>SIGN UP</MainTitle>
+        <NameInput controlId='formBasicName'>
           <Form.Label>Enter Full Name</Form.Label>
           <Form.Control
             type='text'
@@ -72,8 +72,8 @@ const SignUp = () => {
             value={displayName}
             required
           />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        </NameInput>
+        <NameInput controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type='email'
@@ -83,8 +83,8 @@ const SignUp = () => {
             value={email}
             required
           />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
+        </NameInput>
+        <NameInput controlId='formBasicPassword'>
           <Form.Label>Password</Form.Label>
           <Form.Control
             type='password'
@@ -94,8 +94,8 @@ const SignUp = () => {
             value={password}
             required
           />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicConfirmPassword'>
+        </NameInput>
+        <NameInput controlId='formBasicConfirmPassword'>
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type='password'
@@ -105,7 +105,7 @@ const SignUp = () => {
             value={confirmPassword}
             required
           />
-        </Form.Group>
+        </NameInput>
         <Form.Text>
           I already have an account <Link to='/sign-in'>Sign In</Link>
         </Form.Text>
@@ -114,7 +114,7 @@ const SignUp = () => {
             Sign Up
           </Button>
         </div>
-      </Form>
+      </SignUpForm>
     </Container>
   );
 };

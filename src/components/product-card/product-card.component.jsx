@@ -3,13 +3,18 @@ import {
   InvertedProductCardButton,
   Footer,
 } from "./product-card.styles";
-import { useContext } from "react";
-import { CartContext } from "../context/cart.context";
+import { addItemToCart } from "../../actions/cart.action";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCartItems } from "../../store/selectors/cart.selector";
 
 const ProductCard = ({ product }) => {
   const { name, imageUrl, price } = product;
-  const { addItemToCart } = useContext(CartContext);
-  const ProductAddToCart = () => addItemToCart(product);
+
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector(selectCartItems);
+
+  const ProductAddToCart = () => dispatch(addItemToCart(cartItems, product));
   return (
     <ProductCardContainer>
       <img src={imageUrl} alt={`${name}`} />

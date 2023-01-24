@@ -1,14 +1,12 @@
-import { useContext } from "react";
 import { Outlet } from "react-router-dom";
-
 import Logo from "../../Assets/images/logo.png";
 import { signOutUser } from "../../utils/firebase.utils";
+import { useSelector } from "react-redux";
 
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
-import { UserContext } from "../context/user.context";
-import { CartContext } from "../context/cart.context";
+import { selectIsCartOpen } from "../../store/selectors/cart.selector.js";
 
 import {
   NavigationContainer,
@@ -18,14 +16,9 @@ import {
 } from "./navigation.styles";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  let currentUser = useSelector((state) => state.currentUser.currentUser);
 
-  const SignOutHandler = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
-
-  const { isCartOpen } = useContext(CartContext);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   return (
     <>
@@ -37,9 +30,7 @@ const Navigation = () => {
           <NavLink to='/shop'>Shop</NavLink>
 
           {currentUser ? (
-            <span className='nav-link' onClick={SignOutHandler}>
-              SIGN OUT
-            </span>
+            <NavLink onClick={signOutUser}>SIGN OUT</NavLink>
           ) : (
             <NavLink to='/sign-in'>Sign In</NavLink>
           )}

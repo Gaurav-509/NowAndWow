@@ -1,11 +1,11 @@
 import { SignUpForm, NameInput, MainTitle } from "./sign-up.styles";
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { UserContext } from "../context/user.context";
+import { useSelector } from "react-redux";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -22,7 +22,7 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-  const { setCurrentUser } = useContext(UserContext);
+  const setCurrentUser = useSelector((state) => state.currentUser.currentUser);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -36,10 +36,7 @@ const SignUp = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const user = await createAuthUserWithEmailAndPassword(email, password);
 
       setCurrentUser(user);
 

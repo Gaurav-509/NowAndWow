@@ -31,8 +31,11 @@ export const EmptyMessage = styled.span`
   margin: 50px auto;
 `;
 export const CartItemsContainer = styled.div`
+  &::-webkit-scrollbar {
+    display: none;
+  }
   height: 240px;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-y: scroll;
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import { useState } from "react";
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -6,7 +6,8 @@ import {
 } from "../../utils/firebase.utils";
 
 import { SignInForm, Buttons, OneButton, Heading, P } from "./sign-in.styles";
-import { UserContext } from "../context/user.context";
+
+import { useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -20,7 +21,7 @@ const SignIn = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-  const { setCurrentUser } = useContext(UserContext);
+  const setCurrentUser = useSelector((state) => state.currentUser.currentUser);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -33,12 +34,9 @@ const SignIn = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const user = await signInAuthUserWithEmailAndPassword(email, password);
+
       setCurrentUser(user);
       resetFormFields();
     } catch (error) {
@@ -61,7 +59,7 @@ const SignIn = () => {
   };
   return (
     <Container>
-      <SignInForm onSubmit={handleSubmit}>
+      <SignInForm>
         <Heading>SIGN IN</Heading>
         <P>Sign in with your email and password</P>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
@@ -91,7 +89,7 @@ const SignIn = () => {
         </Form.Text>
 
         <Buttons>
-          <OneButton variant='secondary' type='submit'>
+          <OneButton variant='secondary' onClick={handleSubmit}>
             Sign In
           </OneButton>{" "}
           <OneButton

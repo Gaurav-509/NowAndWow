@@ -116,8 +116,8 @@ const SHOP_DATA = [
     items: [
       {
         id: 18,
-        name: 'Black Jean Shearling',
-        imageUrl: 'https://i.ibb.co/XzcwL5s/black-shearling.png',
+        name: 'Green Jean Shearling',
+        imageUrl: 'https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/19020422/2022/12/5/4bf27605-f992-4e38-9d10-47549b0080751670225988045-US-Polo-Assn-Men-Olive-Green-Solid-Puffer-Jacket-46716702259-1.jpg',
         price: 125,
       },
       {
